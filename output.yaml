@@ -1,0 +1,13 @@
+Resources:
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      BucketName: demo-s3-bucket-dev-12038123
+
+Outputs:
+  BucketDtails:
+    Description: Details of the created S3 bucket
+    Value: !Ref MyS3Bucket
+    Export:
+      Name: MyS3Bucket
