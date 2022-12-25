@@ -1,0 +1,25 @@
+Parameters:
+  Environment:
+    Description: WebServer environment
+    Type: String
+    Default: development
+    AllowedValues:
+      - development
+      - production
+    ConstraintDescription: must be development or production
+
+  ImageId:
+    Description: WebServer EC2 image id
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2
+
+Conditions:
+  CreateInstance: !Equals [!Ref Environment, development]
+
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Condition: CreateInstance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Ref ImageId
